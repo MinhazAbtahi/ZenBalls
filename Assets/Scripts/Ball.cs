@@ -70,16 +70,10 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Finish"))
-        {
-            if (isFollowBall) GameManager.Instance.cameraFollow.follow = false;
-            else
-            {
-                GameManager.Instance.cameraFollow.SetTargetBall(transform);
-                UIManager.Instance.cameraSlider.SetActive(false);
-                isFollowBall = true;
-            }
-        }
+        //if (collision.transform.CompareTag("Finish"))
+        //{
+            
+        //}
 
         if (collision.transform.CompareTag("SliderTrigger"))
         {
@@ -89,6 +83,12 @@ public class Ball : MonoBehaviour
 
         if (collision.transform.CompareTag("Box"))
         {
+            if (isFollowBall) GameManager.Instance.cameraFollow.follow = false;
+            else
+            {
+                GameManager.Instance.cameraFollow.SetTargetBall(transform);
+                isFollowBall = true;
+            }
             Invoke(nameof(Deactivate), 1.5f);
         }
     }

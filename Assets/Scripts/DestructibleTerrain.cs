@@ -8,28 +8,20 @@ using int64 = System.Int64;
 public class DestructibleTerrain : MonoBehaviour
 {
     public Material material;
-
     [Range(0.5f, 1.0f)]
     public float blockSize;
-
     private int64 blockSizeScaled;
-
     [Range(0.0f, 5.0f)]
     public float simplifyEpsilonPercent;
-
     [Range(1, 100)]
     public int resolutionX = 10;
-
     [Range(1, 100)]
     public int resolutionY = 10;
-
     public float depth = 1.0f;
-
     private float width;
-
     private float height;
-
     private DestructibleBlock[] blocks;
+    private CameraFollow cameraFollow;
 
     private void Awake()
     {
@@ -38,6 +30,7 @@ public class DestructibleTerrain : MonoBehaviour
         width = blockSize * resolutionX;
         height = blockSize * resolutionY;
         blockSizeScaled = (int64)(blockSize * VectorEx.float2int64);
+        cameraFollow = Camera.main.transform.GetComponent<CameraFollow>();
 
         Initialize();
     }
@@ -115,7 +108,7 @@ public class DestructibleTerrain : MonoBehaviour
         };
     }
 
-    public void ExecuteClip(IClip clip)
+    public void ExecuteClip(IClip clip, bool playerInput = false)
     {
         BlockSimplification.epsilon = (int64)(simplifyEpsilonPercent / 100f * blockSize * VectorEx.float2int64);
 
@@ -150,6 +143,11 @@ public class DestructibleTerrain : MonoBehaviour
                     UpdateBlockBounds(x, y);
 
                     block.UpdateGeometryWithMoreVertices(solutions, width, height, depth);
+                    if(playerInput)
+                    {
+                        SoundManager.Instance.PlayDigSFX();
+                        //if (!cameraFollow.follow) cameraFollow.follow = true;
+                    }                       
                 }              
             }
         }      

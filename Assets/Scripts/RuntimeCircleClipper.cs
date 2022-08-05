@@ -133,6 +133,7 @@ public class RuntimeCircleClipper : MonoBehaviour, IClip
     void Update()
     {
         if (lockInput || !gameManager.isGameStarted || gameManager.isGameOver) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
         UpdateTouch();
     }
@@ -154,7 +155,7 @@ public class RuntimeCircleClipper : MonoBehaviour, IClip
 
                 BuildVertices(currentTouchPoint);
 
-                terrain.ExecuteClip(this);               
+                terrain.ExecuteClip(this, true);               
 
                 previousTouchPoint = currentTouchPoint;            
             }
@@ -168,9 +169,7 @@ public class RuntimeCircleClipper : MonoBehaviour, IClip
                
                 BuildVertices(previousTouchPoint, currentTouchPoint);
             
-                terrain.ExecuteClip(this);
-
-                SoundManager.Instance.PlayDigSFX();
+                terrain.ExecuteClip(this, true);
 
                 previousTouchPoint = currentTouchPoint;
             }          
@@ -179,7 +178,7 @@ public class RuntimeCircleClipper : MonoBehaviour, IClip
         if (Input.GetMouseButtonUp(0))
         {
             SoundManager.Instance.StopDigSFX();
-            //cameraFollow.SetTargetBall(gameManager.GetLowestBall());
+            cameraFollow.SetTargetBall(gameManager.GetLowestBall());
         }
     }
 

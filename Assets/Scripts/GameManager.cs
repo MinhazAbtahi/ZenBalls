@@ -89,6 +89,7 @@ public class GameManager : Singleton<GameManager>
             if (OnGameOver != null) OnGameOver();
             SharedAssets.Instance.finishCollider.isTrigger = false;
             SharedAssets.Instance.finishCollider.transform.GetComponent<SpriteRenderer>().enabled = true;
+            UIManager.Instance.cameraSlider.SetActive(false);
             HapticController.PlayHaptic(HapticController.HapticType.Medium);
         }
     }

@@ -1228,7 +1228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballTransform: {fileID: 1772250436}
-  smoothTime: 0.25
+  smoothTime: 0.5
   follow: 0
 --- !u!1 &146166982
 GameObject:
@@ -11593,7 +11593,7 @@ Transform:
   m_GameObject: {fileID: 1286305263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.42857143}
-  m_LocalScale: {x: 8, y: 1, z: 1.4285715}
+  m_LocalScale: {x: 7, y: 1, z: 1.4285715}
   m_Children: []
   m_Father: {fileID: 1354791651}
   m_RootOrder: 0
@@ -14578,6 +14578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1446946607}
+  smoothTime: 0
 --- !u!1 &1610908487
 GameObject:
   m_ObjectHideFlags: 0

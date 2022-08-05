@@ -10,6 +10,9 @@ public class CameraSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private Transform camTransform;
     private CameraFollow cameraFollow;
     private Slider slider;
+    private Vector3 targetPosition;
+    [SerializeField] private float smoothTime = .2f;
+    private Vector3 refVelocity;
     private bool isInput;
 
     // Start is called before the first frame update
@@ -34,12 +37,13 @@ public class CameraSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         if (cameraFollow.follow) cameraFollow.follow = false;
         if (!player.lockInput) player.lockInput = true;
-        camTransform.position = new Vector3(camTransform.position.x, posY, camTransform.position.z);
+        targetPosition = new Vector3(camTransform.position.x, posY, camTransform.position.z);
+        camTransform.position = targetPosition;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!cameraFollow.follow) cameraFollow.follow = true;
+        //if (!cameraFollow.follow) cameraFollow.follow = true;
         if (player.lockInput) player.lockInput = false;
         if(isInput) isInput = false;
     }
@@ -47,5 +51,6 @@ public class CameraSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerDown(PointerEventData eventData)
     {
         isInput = true;
+        SoundManager.Instance.StopDigSFX();
     }
 }
